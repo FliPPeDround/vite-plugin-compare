@@ -4,7 +4,7 @@ import jsthen from './utiles/index'
 
 const foo = ref('')
 const bar = ref('')
-const a = 100
+const a = 1
 const b = ref(5)
 if (6 > b.value > 4 > 1) {
   bar.value = '6 > b > 4'
@@ -23,11 +23,17 @@ const changeB = () => {
   console.log(123)
   b.value = 10
 }
+
+if (a == 3 || 123 || 5) {
+  console.log('yes,a:'+a);
+} else {
+  console.log('no,a:'+a);
+}
 </script>
 
 <template>
   <button @click="changeB" v-if="1 < b < 10 <= 10 ? true : false">click me</button>
-  <p>{{foo}}</p>
+  <p v-if="a == 3 || 123 || 5">{{foo}}</p>
   <p>{{bar}}</p>
 </template>
 

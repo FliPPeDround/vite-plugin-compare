@@ -3,8 +3,9 @@ import {isBinaryExpression, logicalExpression, binaryExpression, isLogicalExpres
 
 const binaryVisitor = {
   BinaryExpression(path) {
+    const operatorList = ['<','>','<=','>=']
     const node = path.node
-    if (isBinaryExpression(node.left)) {
+    if (isBinaryExpression(node.left) && operatorList.indexOf(node.operator) !== -1) {
       const right = binaryExpression(node.operator, node.left.right, node.right)
       path.replaceWith(logicalExpression('&&',node.left, right));
     }
@@ -14,14 +15,14 @@ const binaryVisitor = {
 const logicalVisitor = {
   LogicalExpression(path) {
     const node = path.node
-    if(isLogicalExpression(path.node.left) && !isBinaryExpression(path.node.right)) {
+    if(isLogicalExpression(node.left) && !isBinaryExpression(node.right)) {
       const { left, operator } = findFirstNode(node)
       const right = binaryExpression(operator, left, node.right)
-      path.replaceWith(logicalExpression('||', node.left, right));
+      path.replaceWith(logicalExpression(node.operator, node.left, right))
     }
     if (isBinaryExpression(node.left) && !isBinaryExpression(node.right)) {
       const right = binaryExpression(node.left.operator, node.left.left, node.right)
-      path.replaceWith(logicalExpression('||', node.left, right));
+      path.replaceWith(logicalExpression(node.operator, node.left, right))
     }
   }
 }

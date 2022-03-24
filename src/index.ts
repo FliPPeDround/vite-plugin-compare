@@ -1,3 +1,4 @@
+import type { Plugin } from 'vite'
 import {transformAsync} from '@babel/core'
 import {isBinaryExpression, logicalExpression, binaryExpression, isLogicalExpression} from '@babel/types'
 
@@ -47,9 +48,9 @@ async function thenTansform (code: string) {
   }))?.code
 }
 
-export default function () {
+function VitePluginCompare(): Plugin {
   return {
-    name: 'compare-plugin',
+    name: 'vit-plugin-compare',
     enforce: 'post',
     async transform(code: string, id: string) {
       const languageVue = /\.vue?$/.test(id)
@@ -63,3 +64,5 @@ export default function () {
     }
   }
 }
+
+export default VitePluginCompare

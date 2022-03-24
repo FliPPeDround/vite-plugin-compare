@@ -2,18 +2,18 @@ import {transformAsync} from '@babel/core'
 import {isBinaryExpression, logicalExpression, binaryExpression, isLogicalExpression} from '@babel/types'
 
 const binaryVisitor = {
-  BinaryExpression(path) {
-    const operatorList = ['<','>','<=','>=']
+  BinaryExpression(path:any) {
     const node = path.node
+    const operatorList = ['<','>','<=','>=']
     if (isBinaryExpression(node.left) && operatorList.indexOf(node.operator) !== -1) {
       const right = binaryExpression(node.operator, node.left.right, node.right)
-      path.replaceWith(logicalExpression('&&',node.left, right));
+      path.replaceWith(logicalExpression('&&',node.left, right))
     }
   }
 }
 
 const logicalVisitor = {
-  LogicalExpression(path) {
+  LogicalExpression(path:any) {
     const node = path.node
     if(isLogicalExpression(node.left) && !isBinaryExpression(node.right)) {
       const { left, operator } = findFirstNode(node)
@@ -27,7 +27,7 @@ const logicalVisitor = {
   }
 }
 
-function findFirstNode (node) {
+function findFirstNode (node: any): any {
   if (isBinaryExpression(node.left)) {
     return {
       left: node.left.left,
@@ -38,11 +38,11 @@ function findFirstNode (node) {
   }
 }
 
-export async function thenTansform (code) {
+export async function thenTansform (code: string) {
   return (await transformAsync(code, {
     plugins:[
       {visitor: logicalVisitor},
-      {visitor: binaryVisitor},
+      {visitor: binaryVisitor}
     ]
-  })).code
+  }))?.code
 }

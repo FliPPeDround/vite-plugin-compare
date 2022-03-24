@@ -1,25 +1,51 @@
 {
   "name": "vite-plugin-compare",
-  "version": "0.0.2",
+  "version": "0.0.3",
+  "description": "A JS Comparison operator's Syntactic Sugar",
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "compare",
+    "syntactic sugar"
+  ],
+  "homepage": "https://github.com/FliPPeDround/vite-plugin-compare",
+  "bugs": "https://github.com/FliPPeDround/vite-plugin-compare/issues",
+  "license": "MIT",
+  "author": "Jojoy Peng <734243792@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FliPPeDround/vite-plugin-compare"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "dev": "npm run build -- --watch",
+    "build": "tsup src/index.ts --dts --format cjs,esm",
     "test": "vitest"
   },
-  "files": ["dist"],
-  "main": "dist/vite-plugin-compare.js",
   "dependencies": {
     "@babel/core": "^7.17.8",
-    "@babel/types": "^7.17.0",
-    "vue": "^3.2.25"
+    "@babel/types": "^7.17.0"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.19",
+    "@types/node": "^17.0.23",
     "@vitejs/plugin-vue": "^2.2.0",
+    "tsup": "^5.12.1",
     "typescript": "^4.5.4",
     "vite": "^2.8.0",
     "vitest": "^0.7.10",
+    "vue": "^3.2.25",
     "vue-tsc": "^0.29.8"
   }
 }

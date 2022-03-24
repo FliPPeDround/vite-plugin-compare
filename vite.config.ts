@@ -1,6 +1,6 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite'
-import compare from './dist/vite-plugin-compare.js'
+import compare from './src'
 
 
 export default defineConfig({

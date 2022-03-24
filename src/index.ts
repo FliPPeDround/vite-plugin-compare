@@ -45,7 +45,7 @@ async function thenTansform (code: string) {
       {visitor: logicalVisitor},
       {visitor: binaryVisitor}
     ]
-  }))?.code
+  }))?.code as string
 }
 
 function VitePluginCompare(): Plugin {

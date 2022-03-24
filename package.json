@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-compare",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A JS Comparison operator's Syntactic Sugar",
   "keywords": [
     "vite",

@@ -1,4 +1,5 @@
 import type { Plugin } from 'vite'
+import { createFilter, FilterPattern } from '@rollup/pluginutils'
 import {transformAsync} from '@babel/core'
 import {isBinaryExpression, logicalExpression, binaryExpression, isLogicalExpression} from '@babel/types'
 
@@ -48,18 +49,23 @@ async function thenTansform (code: string) {
   }))?.code as string
 }
 
-function VitePluginCompare(): Plugin {
+interface Options {
+  include?: FilterPattern
+  exclude?: FilterPattern
+}
+
+function VitePluginCompare(options: Options = {}): Plugin {
   return {
     name: 'vit-plugin-compare',
     enforce: 'post',
     async transform(code: string, id: string) {
-      const languageVue = /\.vue?$/.test(id)
-      const languageJs = /\.js?$/.test(id)
-      const moduls = /node_modules/g.test(id)
-      if ((languageVue || languageJs) && !moduls) {
-        return {
-          code: await thenTansform(code)
-        }
+      const { 
+        include = /\.(js|tsx|vue|ts|tsx)/,
+        exclude
+      } = options
+      const filter = createFilter(include, exclude)
+      if (filter(id)) {
+        return { code: await thenTansform(code) }
       }
     }
   }

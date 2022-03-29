@@ -2,7 +2,7 @@ import {test, expect} from 'vitest'
 import {thenTansform} from './index'
 
 const code = `
-1 < 3 < 2
+a == 1||2||3
 `
 
 test('should', async () => {

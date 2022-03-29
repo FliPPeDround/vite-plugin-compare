@@ -11,20 +11,22 @@ Markdown for Vite
 Install
 
 ```bash
-npm i vite-plugin-md -D # yarn add vite-plugin-md -D
+npm i vite-plugin-compare -D 
+yarn add vite-plugin-compare -D
+pnpm i vite-plugin-compare -D
 ```
 
 
 then add the following to `vite.config.js`
 
 ```ts
-import Vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
 import compare from 'vite-plugin-compare'
 
-export default {
+export default defineConfig({
   plugins: [
-    Vue(),
     compare(),
   ],
-}
+})
 ```
+

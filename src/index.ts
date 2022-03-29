@@ -61,7 +61,7 @@ function VitePluginCompare(options: Options = {}): Plugin {
     async transform(code: string, id: string) {
       const { 
         include = /\.(js|tsx|vue|ts|tsx)/,
-        exclude
+        exclude = /node_modules/
       } = options
       const filter = createFilter(include, exclude)
       if (filter(id)) {
